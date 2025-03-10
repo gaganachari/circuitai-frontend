@@ -18,6 +18,7 @@ import Settings from './pages/main/Settings';
 import Account from './pages/main/Account';
 import ProtectedRoute from './components/ProtectedRoute';
 import Explores from './pages/landing/Explores';
+import NodeEditor from './pages/main/NodeEditor';
 
 function App() {
   return (
@@ -47,6 +48,7 @@ function App() {
           <Route path="notifications" element={<Notifications />} />
           <Route path="settings" element={<Settings />} />
           <Route path="account" element={<Account />} />
+          <Route path="node-editor" element={<NodeEditor/>} />
         </Route>
       </Route>
     </Routes>
