@@ -1,41 +1,45 @@
-import { useCallback } from 'react';
-import { initialNode, initialEdge} from "../../constants/flowData"
-import {
-  ReactFlow,
-  MiniMap,
-  Controls,
-  Background,
-  useNodesState,
-  useEdgesState,
-  addEdge,
-} from '@xyflow/react';
- 
+import { addEdge, Background, Connection, Controls, Edge, Node, ReactFlow, useEdgesState, useNodesState } from "@xyflow/react";
 import '@xyflow/react/dist/style.css';
- 
-const initialNodes = initialNode
-const initialEdges = initialEdge
- 
+import { useCallback } from "react";
+import { initialEdges,initialNodes } from "../../constants/Workflow.constants";
+import PaymentInit from "../../components/NodeEditorComp/PaymentInit";
+import PaymentCountry from "../../components/NodeEditorComp/PaymentCountry";
+import PaymentProvider from "../../components/NodeEditorComp/PaymentProvider";
+import PaymentProviderSelect from "../../components/NodeEditorComp/PaymentProviderSelect";
+
+const nodeTypes = {
+  paymentInit:PaymentInit,
+  paymentCountry:PaymentCountry,
+  paymentProvider:PaymentProvider,
+  paymentProviderSelect:PaymentProviderSelect
+}
+
+
+
+
 export default function App() {
-  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes);
-  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges);
- 
-  const onConnect = useCallback(
-    (params) => setEdges((eds) => addEdge(params, eds)),
-    [setEdges],
-  );
+  const [nodes, setNodes, onNodesChange] = useNodesState(initialNodes)
+  const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
+
+  const onConnect = useCallback((connection:Connection)=>{
+    const edge ={...connection, animated:true, id:`${edges.length} + 1`}
+    setEdges(prevEdges=>addEdge(edge, prevEdges))
+  },[])
+
  
   return (
-    <div className='w-full h-full'>
-      <ReactFlow
-        nodes={nodes}
-        edges={edges}
-        onNodesChange={onNodesChange}
-        onEdgesChange={onEdgesChange}
-        onConnect={onConnect}
+    <div className='w-full h-full'> 
+      <ReactFlow 
+      nodes={nodes} 
+      edges={edges}
+      onNodesChange={onNodesChange}
+      onEdgesChange={onEdgesChange} 
+      onConnect={onConnect}
+      nodeTypes={nodeTypes}
+      fitView
       >
-        <Controls />
-        <MiniMap />
-        <Background variant="dots" gap={12} size={1} />
+        <Background/>
+        <Controls/>
       </ReactFlow>
     </div>
   );
