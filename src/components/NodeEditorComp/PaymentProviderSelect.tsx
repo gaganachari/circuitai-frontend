@@ -9,15 +9,19 @@ export default function PaymentProviderSelect() {
   const { setNodes } = useReactFlow();
 
   const onProviderClick = ({ name, code }: { name: string; code: string }) => {
-    setNodes((prevNodes) => [
-      ...prevNodes,
-      {
-        id: `${prevNodes.length + 1}`,
-        data: { name, code },
-        position: { x: 100, y: 100 },
-        type: "paymentProvider",
-      },
-    ]);
+    setNodes((prevNodes) => {
+      // Generate a unique ID for the new node
+      const newId = `${Date.now()}`;
+      return [
+        ...prevNodes, // Keep all existing nodes, including paymentProviderSelect
+        {
+          id: newId,
+          data: { name, code },
+          position: { x: 100, y: 100 },
+          type: "paymentProvider",
+        },
+      ];
+    });
   };
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {

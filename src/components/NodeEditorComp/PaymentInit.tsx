@@ -1,4 +1,5 @@
-import { Handle, NodeProps, Position } from "@xyflow/react";
+import { NodeProps, Position } from "@xyflow/react";
+import CustomHandle from "./customHandle";
 
 export default function PaymentInit({data:{amount}}:NodeProps<{amount:number}>) {
   return (
@@ -8,7 +9,7 @@ export default function PaymentInit({data:{amount}}:NodeProps<{amount:number}>) 
             
         $ {amount}
         </div>
-        <Handle type="source" position={Position.Right}/>
+        <CustomHandle type="source" position={Position.Right}/>
     </div>
   )
 }

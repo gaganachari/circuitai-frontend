@@ -6,6 +6,7 @@ import PaymentInit from "../../components/NodeEditorComp/PaymentInit";
 import PaymentCountry from "../../components/NodeEditorComp/PaymentCountry";
 import PaymentProvider from "../../components/NodeEditorComp/PaymentProvider";
 import PaymentProviderSelect from "../../components/NodeEditorComp/PaymentProviderSelect";
+import CustomEdge from "../../components/NodeEditorComp/CustomEdge";
 
 const nodeTypes = {
   paymentInit:PaymentInit,
@@ -14,6 +15,9 @@ const nodeTypes = {
   paymentProviderSelect:PaymentProviderSelect
 }
 
+const edgeTypes = {
+  customeEdge:CustomEdge
+}
 
 
 
@@ -22,9 +26,9 @@ export default function App() {
   const [edges, setEdges, onEdgesChange] = useEdgesState(initialEdges)
 
   const onConnect = useCallback((connection:Connection)=>{
-    const edge ={...connection, animated:true, id:`${edges.length} + 1`}
+    const edge ={...connection, animated:true, id:`${edges.length} + 1`, type:'customeEdge'}
     setEdges(prevEdges=>addEdge(edge, prevEdges))
-  },[])
+  },[edges])
 
  
   return (
@@ -36,6 +40,7 @@ export default function App() {
       onEdgesChange={onEdgesChange} 
       onConnect={onConnect}
       nodeTypes={nodeTypes}
+      edgeTypes={edgeTypes}
       fitView
       >
         <Background/>

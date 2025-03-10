@@ -1,6 +1,7 @@
 
-import { Handle, NodeProps, Position, useReactFlow } from "@xyflow/react";
-import { EyeClosed } from "lucide-react";
+import { NodeProps, Position, useReactFlow } from "@xyflow/react";
+import { X } from "lucide-react";
+import CustomHandle from "./customHandle";
 
 
   
@@ -17,10 +18,10 @@ export default function PaymentProvider({data:{name,code},id}:NodeProps<{name:st
             {code}
             </div>
             <div className="cursor-pointer">
-            <EyeClosed size={24} onClick={()=>setNodes((prevNodes)=>prevNodes.filter(node=>node.id!==id))}/>
+            <X size={24} onClick={()=>setNodes((prevNodes)=>prevNodes.filter(node=>node.id!==id))}/>
             </div>  
         </div>
-        <Handle type="target" position={Position.Left}/>
+        <CustomHandle type="target" position={Position.Left}/>
     </div>
   )
 }
